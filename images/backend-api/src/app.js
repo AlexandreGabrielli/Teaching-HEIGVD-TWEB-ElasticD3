@@ -11,6 +11,12 @@ var routes = require('./routes/index');
 
 var app = express();
 
+
+/* Enable CORS, so that we can query the REST API from our front-end */
+var cors = require('cors');
+app.use(cors());
+
+
 var env = process.env.NODE_ENV || 'development';
 app.locals.ENV = env;
 app.locals.ENV_DEVELOPMENT = env == 'development';

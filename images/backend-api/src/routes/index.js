@@ -54,11 +54,16 @@ router.get('/', function (req, res) {
       }
     }
   }).then(function (body) {
-    res.json(body.aggregations[2].buckets.map( b => ({author: b.key, commits: b.doc_count}) ));
-    var hits = body.hits.hits;
-    console.log(hits);
+    console.log("I have a response from elastic");
+    var result = body.aggregations[2].buckets.map( b => ({author: b.key, commits: b.doc_count}) );
+    console.log("I am sending it back");
+    res.json(result);
   }, function (error) {
-    console.trace(error.message);
+    res.json([]);
+    console.log(error.message);
+  }).catch(function(error) {
+    console.log(error);
+    res.json([]);
   });
 
 });
