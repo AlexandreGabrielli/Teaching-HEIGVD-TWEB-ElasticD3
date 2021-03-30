@@ -16,7 +16,7 @@ services:
       - es-data01:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
-   
+
   kibana:
     build: ../images/kibana
     ports:
@@ -28,7 +28,7 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - elasticsearch      
+      - elasticsearch
 volumes:
   es-data01:
     driver: local
