@@ -1,13 +1,22 @@
-version: '2'
-
+version: '2.2'
 services:
   elasticsearch:
     build: ../images/elasticsearch
-    ports:
-      - "9200:9200"
-      - "9300:9300"
+    container_name: elasticsearch
     environment:
-      ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+      - node.name=elasticsearch
+      - cluster.name=es-cluster-7
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms12g -Xms12g"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - es-data01:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+   
   kibana:
     build: ../images/kibana
     ports:
@@ -20,3 +29,8 @@ services:
       - "3000:3000"
     depends_on:
       - elasticsearch      
+volumes:
+  es-data01:
+    driver: local
+    #external: true
+
