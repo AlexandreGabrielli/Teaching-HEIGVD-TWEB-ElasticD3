@@ -1,4 +1,11 @@
-FROM node:6.9.1-alpine
+FROM node:15.12.0-alpine3.10
+
+#
+# The next 2 lines install the requirement for running grunt 
+# see https://github.com/gruntjs/grunt-contrib-sass for more information
+#
+RUN npm install -g grunt-cli
+RUN npm install -g sass
 
 #
 # The next 3 lines are used to optimize the docker build process:
@@ -12,4 +19,4 @@ RUN npm install
 COPY src /opt/backend-api/src
 
 
-CMD [ "npm", "start" ] 
+CMD [ "grunt" ] 
